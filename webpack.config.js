@@ -7,8 +7,6 @@ let production = process.env.NODE_ENV === "production";
 let config = {
     entry: {
         index: './src/index.ts',
-        module1: './src/module1.ts',
-        module2: './src/module2.ts',
     },
     output: {
         clean: true,
@@ -57,6 +55,7 @@ let config = {
                     "sass-loader" // This will convert sass to css
                 ] // Order is important! Loaders are processed from right to left.
             },
+            // smaller than 4kb will be inlined as base64-encoded string, otherwise file-loader is used
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset',
