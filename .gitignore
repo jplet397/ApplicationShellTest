@@ -1,0 +1,7 @@
+# folder to ignore
+/node_modules
+/dist
+
+# IDE folders to ignore
+/.idea
+/.vscode
