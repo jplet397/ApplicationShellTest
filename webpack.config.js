@@ -7,6 +7,8 @@ let production = process.env.NODE_ENV === "production";
 let config = {
     entry: {
         index: './src/index.ts',
+        module1: './src/features/module1/module1.ts',
+        module2: './src/features/module2/module2.ts',
     },
     output: {
         clean: true,
@@ -38,6 +40,11 @@ let config = {
                 use: ["html-loader"]
             },
             {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: ['ts-loader'],
+            },
+            {
                 test: /\.scss$/,
                 exclude: /node_modules/,
                 use: [
@@ -53,7 +60,7 @@ let config = {
                         }
                     },
                     "sass-loader" // This will convert sass to css
-                ] // Order is important! Loaders are processed from right to left.
+                ]
             },
             // smaller than 4kb will be inlined as base64-encoded string, otherwise file-loader is used
             {
@@ -75,6 +82,14 @@ let config = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './src/index.html',
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'module1.html',
+            template: './src/features/module1/module1.html',
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'module2.html',
+            template: './src/features/module2/module2.html',
         }),
         // This plugin is used to create a css file in dist folder.
         new MiniCssExtractPlugin({

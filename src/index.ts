@@ -1,3 +1,3 @@
-import { initRouter } from './router';
+import Router from "./router";
 
-initRouter();
+const router = new Router();

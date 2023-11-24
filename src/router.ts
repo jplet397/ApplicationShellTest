@@ -1,23 +1,41 @@
-function handleHashChange() {
-    let appDiv = document.getElementById("app")
-    console.log(appDiv);
-    if (appDiv == null) {
-        console.error("Element with id 'app' not found");
-    } else {
-        switch(location.hash) {
-            case "#/about":
-                appDiv.innerHTML = "<h1>About Page</h1>";
-                break;
-            case "#/contact":
-                appDiv.innerHTML = "<h1>Contact Page</h1>";
-                break;
-            default:
-                appDiv.innerHTML = "<h1>Home Page</h1>";
+export default class Router {
+    appDiv: HTMLElement | null;
+
+    constructor() {
+        this.appDiv = document.getElementById("app");
+        if (this.appDiv == null) {
+            console.error("Element with id 'app' not found");
+            return;
+        }
+        // bind 'this' in the event handler method
+        this.handleHashChange = this.handleHashChange.bind(this);
+
+        // Listen to hashchange event
+        window.addEventListener("hashchange", this.handleHashChange);
+
+        // Handle initial page load
+        this.handleHashChange()
+            .catch(e => console.error(e));
+    }
+
+    async handleHashChange() {
+        if (this.appDiv) {
+            switch(location.hash) {
+                case "#/about":
+                    this.appDiv.innerHTML = await this.fetchHtml('module1.html');
+                    break;
+                case "#/contact":
+                    this.appDiv.innerHTML = await this.fetchHtml('module2.html');
+                    break;
+                default:
+                    this.appDiv.innerHTML = "<h1>Home</h1>";
+            }
         }
     }
-}
 
-export function initRouter() {
-    window.addEventListener("hashchange", handleHashChange);
-    handleHashChange();
+    async fetchHtml(fileName: string): Promise<string> {
+        const response = await fetch(fileName);
+        const html = await response.text();
+        return html;
+    }
 }
