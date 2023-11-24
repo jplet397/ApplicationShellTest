@@ -1,12 +1,15 @@
 export default class Router {
-    appDiv: HTMLElement | null;
+    appDiv: HTMLElement;
 
     constructor() {
-        this.appDiv = document.getElementById("app");
-        if (this.appDiv == null) {
-            console.error("Element with id 'app' not found");
-            return;
+        let appContainer = document.getElementById("appContainer");
+        if (appContainer == null) {
+            throw new Error("The 'appContainer' element was not found in the DOM.");
         }
+        else {
+            this.appDiv = appContainer;
+        }
+
         // bind 'this' in the event handler method
         this.handleHashChange = this.handleHashChange.bind(this);
 
@@ -18,6 +21,12 @@ export default class Router {
             .catch(e => console.error(e));
     }
 
+    async removeFirstChild() {
+        if (this.appDiv.firstChild) {
+            this.appDiv.firstChild.remove();
+        }
+    }
+
     async handleHashChange() {
         if (this.appDiv) {
             switch(location.hash) {
@@ -27,6 +36,9 @@ export default class Router {
                 case "#/contact":
                     this.appDiv.innerHTML = await this.fetchHtml('module2.html');
                     break;
+                case "#/mfe1":
+                    await this.loadModule('mfe1/component');
+                    break;
                 default:
                     this.appDiv.innerHTML = "<h1>Home</h1>";
             }
@@ -35,7 +47,13 @@ export default class Router {
 
     async fetchHtml(fileName: string): Promise<string> {
         const response = await fetch(fileName);
-        const html = await response.text();
-        return html;
+        return await response.text();
+    }
+
+    async loadModule(moduleName: string): Promise<void> {
+        await this.removeFirstChild();
+        const module = await import(moduleName);
+        const elm = document.createElement(module.elementName);
+        this.appDiv.appendChild(elm);
     }
 }

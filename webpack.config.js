@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { ModuleFederationPlugin } = require('webpack').container;
 
 let production = process.env.NODE_ENV === "production";
 let config = {
@@ -21,6 +22,7 @@ let config = {
     devServer: {
         watchFiles: ['./src/**/*', "index.html"],
         static: './dist',
+        port: 50000,
         // This is used to proxy the request to a different server. Use when server needed
         // proxy: {
         //     '/api': {
@@ -94,6 +96,17 @@ let config = {
         // This plugin is used to create a css file in dist folder.
         new MiniCssExtractPlugin({
             filename: "bundle.css",
+        }),
+        new ModuleFederationPlugin({
+            name: "ApplicationShell",
+            remoteType: 'var',
+            library: { type: "var", name: "shell" },
+            remotes: {
+                mfe1: "mfe1"
+            },
+            shared: {
+                "rxjs": {},
+            }
         }),
         // new BundleAnalyzerPlugin()
     ],
