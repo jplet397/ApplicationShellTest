@@ -6,9 +6,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const mfe1 =  {
     entry: "./src/mfe1/main",
     output: {
-        clean: true,
-        filename: '[name].js',
+        publicPath: "http://localhost:50001/",
+        uniqueName: 'mfe1',
         path: path.resolve(__dirname, 'dist/mfe1'),
+        filename: '[name].js',
+        clean: true,
     },
     mode: "development",
     devServer: {

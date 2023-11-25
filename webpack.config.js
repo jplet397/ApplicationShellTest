@@ -1,13 +1,16 @@
+const { dependencies } = require('./package.json');
+
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { ModuleFederationPlugin } = require('webpack').container;
+const TerserPlugin = require('terser-webpack-plugin');
 
 let production = process.env.NODE_ENV === "production";
 let config = {
     entry: {
-        index: './src/index.ts',
+        index: './src/shell/index.ts',
         module1: './src/features/module1/module1.ts',
         module2: './src/features/module2/module2.ts',
     },
@@ -83,7 +86,7 @@ let config = {
         // This plugin is used to create a html file in dist folder.
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './src/index.html',
+            template: './src/shell/index.html',
         }),
         new HtmlWebpackPlugin({
             filename: 'module1.html',
@@ -97,17 +100,20 @@ let config = {
         new MiniCssExtractPlugin({
             filename: "bundle.css",
         }),
+        // This plug in used to configure webpack module federation.
         new ModuleFederationPlugin({
             name: "ApplicationShell",
-            remoteType: 'var',
-            library: { type: "var", name: "shell" },
+            remoteType: 'script',
+            library: { type: "var", name: "ApplicationShell" },
             remotes: {
-                mfe1: "mfe1"
+                mfe1: "mfe1@http://localhost:50001/remoteEntry.js",
             },
             shared: {
+                ...dependencies,
                 "rxjs": {},
             }
         }),
+        // This plugin is used to analyze the bundle size. This does not need to run all the time.
         // new BundleAnalyzerPlugin()
     ],
 }
