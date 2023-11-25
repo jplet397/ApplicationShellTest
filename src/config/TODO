@@ -1,0 +1,2 @@
+Later split webpack config in more readable separate files, currently only an example added copied from
+https://github.com/module-federation/module-federation-examples/blob/master/typescript-react-monorepo/packages/host/configs/federationConfig.js
