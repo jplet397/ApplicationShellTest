@@ -2,6 +2,7 @@ export default class Router {
     appDiv: HTMLElement;
 
     constructor() {
+        console.log("Router constructor")
         let appContainer = document.getElementById("appContainer");
         if (appContainer == null) {
             throw new Error("The 'appContainer' element was not found in the DOM.");
@@ -28,6 +29,7 @@ export default class Router {
     }
 
     async handleHashChange() {
+        console.log("Router handleHashChange")
         if (this.appDiv) {
             switch(location.hash) {
                 case "#/about":
@@ -37,7 +39,7 @@ export default class Router {
                     this.appDiv.innerHTML = await this.fetchHtml('module2.html');
                     break;
                 case "#/mfe1":
-                    await this.loadModule('mfe1/component');
+                    await this.loadModule();
                     break;
                 default:
                     this.appDiv.innerHTML = "<h1>Home</h1>";
@@ -50,9 +52,9 @@ export default class Router {
         return await response.text();
     }
 
-    async loadModule(moduleName: string): Promise<void> {
+    async loadModule(): Promise<void> {
         await this.removeFirstChild();
-        const module = await import(moduleName);
+        const module = await import('mfe1/component');
         const elm = document.createElement(module.elementName);
         this.appDiv.appendChild(elm);
     }
