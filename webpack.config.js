@@ -11,8 +11,8 @@ let production = process.env.NODE_ENV === "production";
 let config = {
     entry: {
         index: './src/shell/index.ts',
-        module1: './src/features/about-module/about.ts',
-        module2: './src/features/module2/module2.ts',
+        about: './src/features/about-module/about.ts',
+        contact: './src/features/contact-module/contact.ts',
     },
     output: {
         clean: true,
@@ -93,8 +93,8 @@ let config = {
             template: './src/features/about-module/about.html',
         }),
         new HtmlWebpackPlugin({
-            filename: 'module2.html',
-            template: './src/features/module2/module2.html',
+            filename: 'contact.html',
+            template: './src/features/contact-module/contact.html',
         }),
         // This plugin is used to create a css file in dist folder.
         new MiniCssExtractPlugin({

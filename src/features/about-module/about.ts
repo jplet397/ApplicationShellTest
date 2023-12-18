@@ -1,2 +1,2 @@
-console.log("Load about module");
+console.log("Load the about module");
 import './about.scss';

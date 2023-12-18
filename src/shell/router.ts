@@ -36,7 +36,7 @@ export default class Router {
                     await this.fetchHtml('about.html');
                     break;
                 case "#/contact":
-                    await this.fetchHtml('module2.html');
+                    await this.fetchHtml('contact.html');
                     break;
                 case "#/mfe1":
                     await this.loadModule();
