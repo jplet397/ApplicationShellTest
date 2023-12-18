@@ -11,7 +11,7 @@ let production = process.env.NODE_ENV === "production";
 let config = {
     entry: {
         index: './src/shell/index.ts',
-        module1: './src/features/module1/module1.ts',
+        module1: './src/features/about-module/about.ts',
         module2: './src/features/module2/module2.ts',
     },
     output: {
@@ -89,8 +89,8 @@ let config = {
             template: './src/shell/index.html',
         }),
         new HtmlWebpackPlugin({
-            filename: 'module1.html',
-            template: './src/features/module1/module1.html',
+            filename: 'about.html',
+            template: './src/features/about-module/about.html',
         }),
         new HtmlWebpackPlugin({
             filename: 'module2.html',

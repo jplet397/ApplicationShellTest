@@ -33,10 +33,10 @@ export default class Router {
         if (this.appDiv) {
             switch(location.hash) {
                 case "#/about":
-                    this.appDiv.innerHTML = await this.fetchHtml('module1.html');
+                    await this.fetchHtml('about.html');
                     break;
                 case "#/contact":
-                    this.appDiv.innerHTML = await this.fetchHtml('module2.html');
+                    await this.fetchHtml('module2.html');
                     break;
                 case "#/mfe1":
                     await this.loadModule();
@@ -47,14 +47,24 @@ export default class Router {
         }
     }
 
-    async fetchHtml(fileName: string): Promise<string> {
+    async fetchHtml(fileName: string): Promise<void> {
+        await this.removeFirstChild();
+
         const response = await fetch(fileName);
-        return await response.text();
+        const htmlContent = await response.text();
+
+        const tempDiv = document.createElement('div');
+
+        tempDiv.innerHTML = htmlContent;
+
+        this.appDiv.appendChild(tempDiv);
     }
 
     async loadModule(): Promise<void> {
         await this.removeFirstChild();
+        // @ts-ignore
         const module = await import('mfe1/component');
+        console.log(module.elementName)
         const elm = document.createElement(module.elementName);
         this.appDiv.appendChild(elm);
     }
