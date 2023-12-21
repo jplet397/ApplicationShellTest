@@ -1,0 +1,5 @@
+# Any change in this repo will require approval from @jplet397
+* @jplet397
+
+# Any change inside the documents folder will require approval from @jplet397
+/Documents @jplet397
