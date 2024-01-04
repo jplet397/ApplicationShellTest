@@ -1,6 +1,6 @@
 # List of todo's for the project
 
-1. Add testing possibillities to the project
+1. Add testing possibilities to the project
 2. Add event emitter handling
 3. Configure module federation of webpack in this project
 4. Try out with design system components

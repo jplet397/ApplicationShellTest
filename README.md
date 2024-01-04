@@ -1,5 +1,5 @@
 # ApplicationShellTest
 
-TODO Add something usefull here
+TODO Add something useful here
 
 made a change, testing it here, again
