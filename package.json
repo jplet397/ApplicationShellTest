@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "webpack serve --config webpack.config.js",
+    "start:shell": "webpack serve --config webpack.config.js",
     "start:mfe1": "webpack serve --config webpack.mfe1.config.js",
     "build": "set NODE_ENV=production&&webpack --config webpack.config.js",
     "build:shell": "set NODE_ENV=production&&webpack --config webpack.config.js",
