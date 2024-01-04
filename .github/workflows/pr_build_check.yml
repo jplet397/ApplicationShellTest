@@ -1,0 +1,33 @@
+name: Build check on PR
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+    - 'src/**'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@main
+      - name: Run a one-line script
+        run: echo Hello, world!
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.1
+        with:
+          node-version-file: package.json
+
+      - name: Install dependencies of client apps
+        working-directory: 'src'
+        run: npm install
+
+      - name: Build and publish application shell
+        working-directory: 'src'
+        run: npm build
+
+    
