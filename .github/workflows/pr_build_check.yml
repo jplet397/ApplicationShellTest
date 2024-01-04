@@ -28,6 +28,4 @@ jobs:
 
       - name: Build and publish application shell
         working-directory: 'src'
-        run: npm build
-
-    
+        run: npm run build
