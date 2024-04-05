@@ -14,11 +14,14 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Use the latest Node.js version
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4.0.1
       with:
-        node-version: 'latest'
+        node-version-file: package.json
 
-    - name: Build application
-      run: |
-        npm install
-        npx webpack
+    - name: Install dependencies of client apps
+      working-directory: 'src'
+      run: npm install
+
+    - name: Build and publish application shell
+      working-directory: 'src'
+      run: npm run build
