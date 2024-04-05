@@ -1,30 +1,24 @@
-name: NodeJS with Webpack
+name: Continuous Integration - Build Check
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - '*' # Run on all branches
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - run: echo "Node.js ${{ matrix.node-version }} will be used."
-
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use the latest Node.js version
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 'latest'
 
-    - name: Build
+    - name: Build application
       run: |
         npm install
         npx webpack
