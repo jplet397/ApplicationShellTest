@@ -1,70 +1,81 @@
+import {MicroFrontends} from "./MicroFrontends";
+
 export default class Router {
-    appDiv: HTMLElement;
+    private appDiv: HTMLElement;
 
     constructor() {
         console.log("Router constructor")
-        let appContainer = document.getElementById("appContainer");
-        if (appContainer == null) {
+        const appContainer = document.getElementById("appContainer");
+        if (appContainer === null) {
             throw new Error("The 'appContainer' element was not found in the DOM.");
         }
-        else {
-            this.appDiv = appContainer;
-        }
+        this.appDiv = appContainer;
 
-        // bind 'this' in the event handler method
-        this.handleHashChange = this.handleHashChange.bind(this);
+        window.addEventListener("hashchange", this.handleHashChange.bind(this));
 
-        // Listen to hashchange event
-        window.addEventListener("hashchange", this.handleHashChange);
-
-        // Handle initial page load
-        this.handleHashChange()
+        this.initialize()
             .catch(e => console.error(e));
     }
 
-    async removeFirstChild() {
-        if (this.appDiv.firstChild) {
-            this.appDiv.firstChild.remove();
+    private async initialize(): Promise<void> {
+        await this.handleHashChange();
+    }
+
+    private async removeFirstChild(): Promise<void> {
+        const {firstChild} = this.appDiv;
+        if (firstChild) {
+            firstChild.remove();
         }
     }
 
-    async handleHashChange() {
+    private async handleHashChange(): Promise<void> {
         console.log("Router handleHashChange")
-        if (this.appDiv) {
-            switch(location.hash) {
-                case "#/about":
-                    await this.fetchHtml('about.html');
-                    break;
-                case "#/contact":
-                    await this.fetchHtml('contact.html');
-                    break;
-                case "#/mfe1":
-                    await this.loadModule();
-                    break;
-                default:
-                    this.appDiv.innerHTML = "<h1>Home</h1>";
-            }
+        const {hash} = location;
+        switch (hash) {
+            case "#/about":
+                await this.loadModule(MicroFrontends.Mfe2);
+                break;
+            case "#/contact":
+                await this.fetchHtml(hash.slice(2) + '.html');
+                break;
+            case "#/mfe1":
+                await this.loadModule(MicroFrontends.Mfe1);
+                break;
+            default:
+                this.appDiv.innerHTML = "<h1>Home</h1>";
         }
     }
 
-    async fetchHtml(fileName: string): Promise<void> {
+    private async fetchHtml(fileName: string): Promise<void> {
         await this.removeFirstChild();
-
         const response = await fetch(fileName);
         const htmlContent = await response.text();
-
         const tempDiv = document.createElement('div');
-
         tempDiv.innerHTML = htmlContent;
-
         this.appDiv.appendChild(tempDiv);
     }
 
-    async loadModule(): Promise<void> {
+    private async loadModule(mfe: MicroFrontends): Promise<void> {
         await this.removeFirstChild();
-        // @ts-ignore
-        const module = await import('mfe1/component');
-        console.log(module.elementName)
+
+        let module;
+        switch (mfe) {
+            case MicroFrontends.Mfe1:
+                // @ts-ignore
+                module = await import('mfe1/component');
+                break;
+            case MicroFrontends.Mfe2:
+                // @ts-ignore
+                module = await import('about/component');
+                break;
+            // case MicroFrontends.Mfe3:
+            //     module = await import('mfe3/component');
+            //     break;
+            default:
+                throw new Error(`Unsupported module: ${mfe}`);
+        }
+
+        console.log(module.elementName);
         const elm = document.createElement(module.elementName);
         this.appDiv.appendChild(elm);
     }

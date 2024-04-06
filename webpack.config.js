@@ -11,7 +11,7 @@ let production = process.env.NODE_ENV === "production";
 let config = {
     entry: {
         index: './src/shell/index.ts',
-        about: './src/features/about-module/about.ts',
+        // about: './src/features/about-module/about.ts',
         contact: './src/features/contact-module/contact.ts',
     },
     output: {
@@ -88,10 +88,10 @@ let config = {
             filename: 'index.html',
             template: './src/shell/index.html',
         }),
-        new HtmlWebpackPlugin({
-            filename: 'about.html',
-            template: './src/features/about-module/about.html',
-        }),
+        // new HtmlWebpackPlugin({
+        //     filename: 'about.html',
+        //     template: './src/features/about-module/about.html',
+        // }),
         new HtmlWebpackPlugin({
             filename: 'contact.html',
             template: './src/features/contact-module/contact.html',
@@ -107,6 +107,7 @@ let config = {
             library: { type: "var", name: "ApplicationShell" },
             remotes: {
                 mfe1: "mfe1@http://localhost:50001/remoteEntry.js",
+                about: "about@http://localhost:50002/remoteEntry.js",
             },
             shared: {
                 ...dependencies,
