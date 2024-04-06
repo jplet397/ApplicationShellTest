@@ -1,7 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-# TOTO Is not working yet, need to be correctly implemented later
 name: ci-cd
 
 on:
@@ -10,6 +6,10 @@ on:
       - main
 
   workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
+  AZURE_WEBAPP_NAME: ApplicationShellTest
 
 jobs:
   build:
@@ -58,7 +58,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'ApplicationShellTest'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A5DEC5AB5D93495D9DE91F86C669EAC0 }}
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: 'development'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
