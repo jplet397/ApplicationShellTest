@@ -3,5 +3,6 @@
 /dist
 
 # IDE folders to ignore
+docs/.idea
 /.idea
 /.vscode

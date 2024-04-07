@@ -1,3 +1,5 @@
-This is the github pages example.
+# Welcome traveller!
 
-This can be used for external documentation...
+You have found my toy project. Do not expect anything!
+
+Happy travels!
