@@ -1,0 +1,3 @@
+-- todo fill this file with
+--- How to report issue
+--- How reports will be handled
