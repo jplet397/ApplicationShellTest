@@ -1,9 +1,9 @@
 name: Continuous Integration - Build Check
 
 on:
-  push:
-    branches:
-      - '*' # Run on all branches
+#  push:
+#    branches:
+#      - '*' # Run on all branches
 
 jobs:
   build:
