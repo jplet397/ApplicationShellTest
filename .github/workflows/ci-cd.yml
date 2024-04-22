@@ -1,9 +1,8 @@
-name: ci-cd
+name: "Build and deploy pipeline"
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
   workflow_dispatch:
 
@@ -12,13 +11,44 @@ env:
   AZURE_WEBAPP_NAME: ApplicationShellTest
 
 jobs:
-  build:
-    env:
+  analyze:
+    name: Analyze
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 120
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript-typescript' ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          config-file: .github/workflows/codeql/codeql-config.yml
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
+
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@main
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
