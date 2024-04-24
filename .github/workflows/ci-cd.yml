@@ -11,8 +11,8 @@ env:
   AZURE_WEBAPP_NAME: ApplicationShellTest
 
 jobs:
-  analyze:
-    name: Analyze
+  analyze-codeql:
+    name: Analyze CodeQL
     runs-on: 'ubuntu-latest'
     timeout-minutes: 120
     permissions:
@@ -42,6 +42,28 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{matrix.language}}"
+
+# never tested, will need to be adapted if ever used
+#  analyze-license:
+#    name: Analyze Snyk License
+#    runs-on: 'ubuntu-latest'
+#    timeout-minutes: 120
+#    steps:
+#    - name: Checkout repository
+#      uses: actions/checkout@v4
+#
+#    - name: Set up Node.js version
+#      uses: actions/setup-node@v3
+#      with:
+#        node-version: '20.x'
+#
+#    - name: Run SNyk to check for vulnerabilities
+#      uses: snyk/actions/nodejs@master
+#      continue-on-error: true
+#      env:
+#        SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+#      with:
+#        args: --sarif-file-output=snyk.sarif --file=./src/seb-game/Globomantics.sln --severity-threshold=medium
 
   build:
     runs-on: ubuntu-latest
