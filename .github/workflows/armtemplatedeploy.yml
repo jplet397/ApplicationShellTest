@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Azure Login
         uses: Azure/login@v1
@@ -23,7 +23,7 @@ jobs:
 #            az deployment sub create --location "westeurope" --template-file ./arm-templates/resourcegroup.json
 
       - name: Deploy Resource Group rg-githubactions with arm-deploy
-        uses: Azure/arm-deploy@v1
+        uses: Azure/arm-deploy@v2
         with:
           scope: subscription
           subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
