@@ -19,7 +19,7 @@ jobs:
         uses: Azure/cli@1.0.4
         with: 
           inlineScript: |
-            az deployment sub --location "East US" --template-file ./arm-templates/resoucegroup.json
+            az deployment sub --location "east uS" --template-file ./arm-templates/resoucegroup.json
       
 
  
