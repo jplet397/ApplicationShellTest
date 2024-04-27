@@ -20,7 +20,10 @@ jobs:
         uses: Azure/cli@1.0.4
         with:
           inlineScript: |
-            az deployment sub create --location australiaeast --template-file ./arm-templates/resourcegroup.json --debug
+            az deployment sub create 
+            --template-file ./arm-templates/resourcegroup.json
+            --location australiaeast 
+            --debug
 
   #      - name: Deploy Resource Group rg-githubactions with arm-deploy
   #        uses: Azure/arm-deploy@v1
