@@ -5,7 +5,7 @@
         "location": {
             "type": "string",
             "metadata": {
-                "description": "Enter the location to deplou the resource to"
+                "description": "Enter the location to deploy the resource to"
             }
         },
         "resourceGroupName": {
