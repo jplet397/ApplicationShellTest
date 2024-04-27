@@ -7,16 +7,13 @@
             "metadata": {
                 "description": "Enter the location to deplou the resource to"
             }
-            // ,
-            // "defaultValue": "westeurope"
         },
         "resourceGroupName": {
             "type": "string",
             "metadata": {
                 "description": "Enter the name for the resource group"
-            }
-            // ,
-            // "defaultValue": "rg-githubactions"
+            },
+            "defaultValue": "rg-githubactions"
         }
     },
     "functions": [],

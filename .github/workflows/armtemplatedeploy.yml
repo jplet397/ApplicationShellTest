@@ -15,19 +15,19 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Two way of executing an ARM template: Azure clie and 
-      # - name: Deploy Resource Group rg-githubactions with azure CLI
-      #   uses: Azure/cli@1.0.4
-      #   with: 
-      #     inlineScript: |
-      #       az deployment sub create --location "westeurope" --template-file ./arm-templates/resoucegroup.json
-      
-      - name: Deploy Resource Group rg-githubactions with arm-deploy
-        uses: Azure/arm-deploy@v1
+      # Two-way of executing an ARM template: Azure clie and /arm-deploy
+      - name: Deploy Resource Group rg-githubactions with azure CLI
+        uses: Azure/cli@1.0.4
         with:
-          scope: subscription
-          subscriptionId: 10c2237a-98ed-4bc0-935e-dc9bddd37249
-          region: Australia East
-          template: ./arm-templates/resoucegroup.json
-          deploymentName: rg-githubactions
+          inlineScript: |
+            az deployment sub create --location "Australia East" --template-file ./arm-templates/resoucegroup.json
+
+  #      - name: Deploy Resource Group rg-githubactions with arm-deploy
+  #        uses: Azure/arm-deploy@v1
+  #        with:
+  #          scope: subscription
+  #          subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+  #          region: Australia East
+  #          template: ./arm-templates/resoucegroup.json
+  #          deploymentName: rg-githubactions
  
