@@ -6,7 +6,8 @@
             "type": "string",
             "metadata": {
                 "description": "Enter the location to deploy the resource to"
-            }
+            },
+            "defaultValue": "Australia East"
         },
         "resourceGroupName": {
             "type": "string",
