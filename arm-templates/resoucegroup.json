@@ -7,7 +7,7 @@
             "metadata": {
                 "description": "Enter the location to deplou the resource to"
             },
-            "defaultValue": "Australia East"
+            "defaultValue": "West Europe"
         },
         "resourceGroupName": {
             "type": "string",
