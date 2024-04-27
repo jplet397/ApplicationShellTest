@@ -6,8 +6,9 @@
             "type": "string",
             "metadata": {
                 "description": "Enter the location to deplou the resource to"
-            },
-            "defaultValue": "westeurope"
+            }
+            // ,
+            // "defaultValue": "westeurope"
         },
         "resourceGroupName": {
             "type": "string",
