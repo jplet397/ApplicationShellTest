@@ -14,6 +14,12 @@ jobs:
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Resource Grouup rg-githubactions with azure CLI
+        uses: Azure/cli@1.0.4
+        with: 
+          inlineScript: |
+            az deployment sub --location "Australia East" --template-file ./arm-templates/resoucegroup.json
       
 
  
