@@ -28,6 +28,6 @@ jobs:
   #          scope: subscription
   #          subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
   #          region: Australia East
-  #          template: ./arm-templates/resoucegroup.json
+  #          template: ./arm-templates/resourcegroup.json
   #          deploymentName: rg-githubactions
  
