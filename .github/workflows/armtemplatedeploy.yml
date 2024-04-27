@@ -3,6 +3,11 @@ name: ARM template deployment
 on:
   workflow_dispatch:
 
+env:
+  LOCATION: Australia East
+  RESOURCEGROUP_NAME: rg-githubactions
+  STORAGEACCOUNT_NAME: sa-githubactions
+
 jobs:
   armDeploy:
     runs-on: ubuntu-latest
@@ -27,7 +32,17 @@ jobs:
         with:
           scope: subscription
           subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
-          region: Australia East
+          region: $LOCATION
           template: ./arm-templates/resourcegroup.json
-          deploymentName: rg-githubactions
+          deploymentName: $RESOURCEGROUP_NAME
  
+      - name: Deploy Storage Account with paramter file
+        uses: Azure/arm-deploy@v2
+        with:
+          scope: resourcegroup
+          resourceGroupName: $RESOURCEGROUP_NAME
+          subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+          template: ./arm-templates/storageaccount.json
+          parameters: ./arm-templates/storageaccount.parameters.json
+          deploymentName: $STORAGEACCOUNT_NAME
+          deploymentMode: incremental
