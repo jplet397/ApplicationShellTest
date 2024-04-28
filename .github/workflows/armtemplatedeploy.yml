@@ -6,7 +6,7 @@ on:
 env:
   location: Australia Central
   resource_group_name: rg-githubactions-xx02xx
-  storage_account_name: sa-githubactions
+  storage_account_name: sa-githubactions-xx02xx
 
 jobs:
   armDeploy:
