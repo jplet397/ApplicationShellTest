@@ -36,6 +36,18 @@ jobs:
           template: ./arm-templates/resourcegroup.json
           deploymentName: ${{ env.RESOURCEGROUP_NAME }}
  
+          # Two-way of using parameters in file: parameter file and inline
+      # - name: Deploy Storage Account ${{ env.STORAGEACCOUNT_NAME }} with parameter file
+      #   uses: Azure/arm-deploy@v2
+      #   with:
+      #     scope: resourcegroup
+      #     resourceGroupName: ${{ env.RESOURCEGROUP_NAME }}
+      #     subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
+      #     template: ./arm-templates/storageaccount.json
+      #     parameters: ./arm-templates/storageaccount.parameters.json
+      #     deploymentName: ${{ env.STORAGEACCOUNT_NAME }}
+      #     deploymentMode: incremental
+
       - name: Deploy Storage Account ${{ env.STORAGEACCOUNT_NAME }} with parameter file
         uses: Azure/arm-deploy@v2
         with:
@@ -43,6 +55,9 @@ jobs:
           resourceGroupName: ${{ env.RESOURCEGROUP_NAME }}
           subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
           template: ./arm-templates/storageaccount.json
-          parameters: ./arm-templates/storageaccount.parameters.json
+          parameters: 
+            ./arm-templates/storageaccount.parameters.json
+            storageAccountName=mygreateststorgage
+            location="Australia Central"
           deploymentName: ${{ env.STORAGEACCOUNT_NAME }}
           deploymentMode: incremental
