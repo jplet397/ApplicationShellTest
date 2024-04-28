@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "storageAccountName": {
-            "value": "Globoostg001" 
+            "value": "my-great-storage-001"
         },
         "location": {
             "value": "Australia Central" 
