@@ -35,7 +35,7 @@ jobs:
           region: ${{ env.location }}
           template: ./arm-templates/resourcegroup.json
           parameters:
-            location=${{ env.location }}
+            location="${{ env.location }}"
             resourceGroupName=${{ env.resource_group_name }}
           deploymentName: ${{ env.resource_group_name }}
  
@@ -62,7 +62,7 @@ jobs:
           parameters: 
             ./arm-templates/storageaccount.parameters.json
             storageAccountName=${{ env.storage_account_name }}
-            location=${{ env.location }}
+            location="${{ env.location }}"
           deploymentName: ${{ env.storage_account_name }}
           deploymentMode: incremental
 
@@ -75,5 +75,5 @@ jobs:
           template: ./arm-templates/virtualmachine.json
           parameters: 
             adminPassword=${{ secrets.VM_ADMIN_PASSWORD }}
-            location=${{ env.location }}
+            location="${{ env.location }}"
           deploymentMode: incremental
