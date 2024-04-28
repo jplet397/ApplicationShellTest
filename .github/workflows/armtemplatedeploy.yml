@@ -5,8 +5,8 @@ on:
 
 env:
   location: Australia Central
-  resource_group_name: rg-githubactions-xx02xx
-  storage_account_name: sa-githubactions-xx02xx
+  resource_group_name: rg-githubactions
+  storage_account_name: sa-githubactions
 
 jobs:
   armDeploy:
@@ -36,7 +36,7 @@ jobs:
           template: ./arm-templates/resourcegroup.json
           parameters:
             location="${{ env.location }}"
-            resourceGroupName=${{ env.resource_group_name }}
+            resourceGroupName="${{ env.resource_group_name }}"
           deploymentName: ${{ env.resource_group_name }}
  
           # Two-way of using parameters in file: parameter file and inline
@@ -61,7 +61,7 @@ jobs:
           template: ./arm-templates/storageaccount.json
           parameters: 
             ./arm-templates/storageaccount.parameters.json
-            storageAccountName=${{ env.storage_account_name }}
+            storageAccountName=mygreatstorage
             location="${{ env.location }}"
           deploymentName: ${{ env.storage_account_name }}
           deploymentMode: incremental
