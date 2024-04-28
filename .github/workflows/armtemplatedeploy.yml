@@ -34,6 +34,9 @@ jobs:
           subscriptionId: ${{ secrets.SUBSCRIPTION_ID }}
           region: ${{ env.LOCATION }}
           template: ./arm-templates/resourcegroup.json
+          parameters:
+            location="Australia East" 
+            resourceGroupName="rg-githubactions"
           deploymentName: ${{ env.RESOURCEGROUP_NAME }}
  
           # Two-way of using parameters in file: parameter file and inline
