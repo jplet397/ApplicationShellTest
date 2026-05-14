@@ -78,6 +78,40 @@ The shell dynamically imports the component and appends it to `#appContainer`.
 
 ---
 
+## Testing
+
+### Test stack
+
+| Layer | Tool | Config | Script |
+|-------|------|--------|--------|
+| Unit | Vitest + jsdom | `vitest.config.ts` | `npm run test:unit` |
+| E2E | Playwright (Chromium) | `playwright.config.ts` | `npm run test:e2e` |
+
+Run all tests: `npm test`
+
+### File locations
+
+- Unit tests: `src/shell/__tests__/` (co-located with shell source)
+- E2E tests: `e2e/` (repo root)
+
+### Running tests
+
+```bash
+npm run test:unit   # Vitest — unit tests, no browser required
+npm run test:e2e    # Playwright — requires shell dev server (auto-started)
+npm test            # both layers in sequence
+```
+
+Unit tests run in CI and block the build on failure. E2E tests are run locally;
+see `playwright.config.ts` for `webServer` configuration.
+
+### Module Federation in unit tests
+
+Federation dynamic imports (`import('mfe1/component')`, `import('about/component')`) are
+mocked with `vi.mock()`. Unit tests must never require live remote servers.
+
+---
+
 ## Known Issues / Active TODOs
 
 See `todo.md` for the full list. Key items:
@@ -115,6 +149,9 @@ Lint runs in CI (`.github/workflows/ci-cd.yml`) before the build step and will f
 - `@ts-expect-error` is used for federation dynamic imports — acceptable until proper type stubs exist (SPEC-8)
 - No framework — keep it that way unless explicitly decided otherwise
 - Commit messages: imperative mood, plain English, no ticket prefix required
+- **Every new feature or change to existing shell code must include corresponding tests.**
+  New routes require unit tests for the routing logic and E2E tests for user-visible
+  behaviour. New MFE enum values require an updated `MicroFrontends.test.ts`.
 
 ---
 
@@ -124,3 +161,4 @@ Lint runs in CI (`.github/workflows/ci-cd.yml`) before the build step and will f
 - Do not change port numbers (47000/47001/47002) without updating all webpack configs and the shell's remote URLs
 - Do not remove `rxjs` from `shared` in federation configs — it must be shared to avoid duplicate instances
 - Do not commit `node_modules/` or `dist/`
+- Do not skip writing tests when adding features or modifying shell logic — `npm test` must pass before committing
