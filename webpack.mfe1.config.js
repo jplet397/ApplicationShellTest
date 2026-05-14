@@ -3,6 +3,8 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const production = process.env.NODE_ENV === "production";
+
 const mfe1 =  {
     entry: "./src/mfe1/main",
     output: {
@@ -12,7 +14,8 @@ const mfe1 =  {
         filename: '[name].js',
         clean: true,
     },
-    mode: "development",
+    mode: production ? "production" : "development",
+    devtool: production ? "source-map" : "eval-source-map",
     devServer: {
         watchFiles: ['./src/mfe1/**/*', "main.html"],
         static: './dist/mfe1',
