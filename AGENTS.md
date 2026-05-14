@@ -11,9 +11,9 @@ The shell hosts multiple micro-frontends (MFEs) via hash-based routing and Web C
 
 | App | Entry | Dev port |
 |-----|-------|----------|
-| Shell | `src/shell/index.ts` | 50000 |
-| mfe1 | `src/mfe1/main.ts` | 50001 |
-| about (mfe2) | *(not yet in repo)* | 50002 |
+| Shell | `src/shell/index.ts` | 47000 |
+| mfe1 | `src/mfe1/main.ts` | 47001 |
+| about (mfe2) | *(not yet in repo)* | 47002 |
 
 ---
 
@@ -47,7 +47,7 @@ arm-templates/    # Azure deployment templates
 
 ```bash
 npm install                  # install dependencies
-npm run start:all            # shell (50000) + mfe1 (50001) in parallel
+npm run start:all            # shell (47000) + mfe1 (47001) in parallel
 npm run start                # shell only
 npm run start:mfe1           # mfe1 only
 npm run build                # production build of shell
@@ -121,6 +121,6 @@ Lint runs in CI (`.github/workflows/ci-cd.yml`) before the build step and will f
 ## What Agents Should NOT Do
 
 - Do not add React, Angular, or Vue unless explicitly requested
-- Do not change port numbers (50000/50001/50002) without updating all webpack configs and the shell's remote URLs
+- Do not change port numbers (47000/47001/47002) without updating all webpack configs and the shell's remote URLs
 - Do not remove `rxjs` from `shared` in federation configs — it must be shared to avoid duplicate instances
 - Do not commit `node_modules/` or `dist/`

@@ -25,7 +25,7 @@ let config = {
     devServer: {
         watchFiles: ['./src/**/*', "index.html"],
         static: './dist',
-        port: 50000,
+        port: 47000,
         // This is used to proxy the request to a different server. Use when server needed
         // proxy: {
         //     '/api': {
@@ -106,8 +106,8 @@ let config = {
             remoteType: 'script',
             library: { type: "var", name: "ApplicationShell" },
             remotes: {
-                mfe1: "mfe1@http://localhost:50001/remoteEntry.js",
-                about: "about@http://localhost:50002/remoteEntry.js",
+                mfe1: "mfe1@http://localhost:47001/remoteEntry.js",
+                about: "about@http://localhost:47002/remoteEntry.js",
             },
             shared: {
                 ...dependencies,

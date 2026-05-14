@@ -8,7 +8,7 @@ const production = process.env.NODE_ENV === "production";
 const about = {
     entry: "./src/about/main",
     output: {
-        publicPath: "http://localhost:50002/",
+        publicPath: "http://localhost:47002/",
         uniqueName: 'about',
         path: path.resolve(__dirname, 'dist/about'),
         filename: '[name].js',
@@ -19,7 +19,11 @@ const about = {
     devServer: {
         watchFiles: ['./src/about/**/*', "main.html"],
         static: './dist/about',
-        port: 50002,
+        port: 47002,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Resource-Policy": "cross-origin",
+        },
     },
     module: {
         rules: [
