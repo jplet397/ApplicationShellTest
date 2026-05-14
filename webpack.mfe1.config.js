@@ -8,7 +8,7 @@ const production = process.env.NODE_ENV === "production";
 const mfe1 =  {
     entry: "./src/mfe1/main",
     output: {
-        publicPath: "http://localhost:50001/",
+        publicPath: "http://localhost:47001/",
         uniqueName: 'mfe1',
         path: path.resolve(__dirname, 'dist/mfe1'),
         filename: '[name].js',
@@ -19,7 +19,11 @@ const mfe1 =  {
     devServer: {
         watchFiles: ['./src/mfe1/**/*', "main.html"],
         static: './dist/mfe1',
-        port: 50001,
+        port: 47001,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Resource-Policy": "cross-origin",
+        },
     },
     module: {
         rules: [
