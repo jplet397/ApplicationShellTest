@@ -2,4 +2,5 @@ import Router from "./router";
 
 console.log("shell index.ts")
 
-const router = new Router();
+// Instantiated for side effects: sets up hash-based routing
+new Router();

@@ -61,11 +61,11 @@ export default class Router {
         let module;
         switch (mfe) {
             case MicroFrontends.Mfe1:
-                // @ts-ignore
+                // @ts-expect-error -- no type stubs for federation remotes yet (see SPEC-8)
                 module = await import('mfe1/component');
                 break;
             case MicroFrontends.Mfe2:
-                // @ts-ignore
+                // @ts-expect-error -- no type stubs for federation remotes yet (see SPEC-8)
                 module = await import('about/component');
                 break;
             // case MicroFrontends.Mfe3:
