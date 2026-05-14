@@ -2,7 +2,7 @@
   "name": "application-shell-test",
   "version": "0.1.0",
   "scripts": {
-    "start:all": "npm-run-all --parallel start:shell start:mfe1",
+    "start:all": "npm-run-all --parallel start:shell start:mfe1 start:about",
     "start": "webpack serve --config webpack.config.js",
     "start:shell": "webpack serve --config webpack.config.js",
     "start:mfe1": "webpack serve --config webpack.mfe1.config.js",

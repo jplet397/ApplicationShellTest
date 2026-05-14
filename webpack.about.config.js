@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const production = process.env.NODE_ENV === "production";
 
 const about = {
-    entry: "./src/about/main",
+    entry: "./src/about-module/main",
     output: {
         publicPath: "http://localhost:47002/",
         uniqueName: 'about',
@@ -17,7 +17,7 @@ const about = {
     mode: production ? "production" : "development",
     devtool: production ? "source-map" : "eval-source-map",
     devServer: {
-        watchFiles: ['./src/about/**/*', "main.html"],
+        watchFiles: ['./src/about-module/**/*'],
         static: './dist/about',
         port: 47002,
         headers: {
@@ -30,6 +30,23 @@ const about = {
             {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+            {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [['postcss-preset-env', {}]],
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
             },
             {
                 test: /\.ts$/,
@@ -48,14 +65,14 @@ const about = {
             library: {type: "var", name: "about"},
             filename: "remoteEntry.js",
             exposes: {
-                "./component": "./src/about/component"
+                "./component": "./src/about-module/component"
             },
             shared: {
                 "rxjs": {},
             }
         }),
         new HtmlWebpackPlugin({
-            template: "./src/about/index.html"
+            template: "./src/about-module/index.html"
         }),
     ]
 };
