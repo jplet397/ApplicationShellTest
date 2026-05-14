@@ -1,42 +1,30 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-  color: #333;
-}
+// Design tokens for the Droideka about MFE.
+// These are not imported at runtime — the component uses inline styles.
+// Kept here as a reference for a future CSS library integration.
 
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-}
+// Color tokens
+$color-bg:        #0d0d0d;
+$color-surface:   #161616;
+$color-border:    #222222;
+$color-text:      #e8e8e8;
+$color-text-muted:#aaaaaa;
+$color-text-dim:  #555555;
 
-section {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+// Typography tokens
+$font-family:     'Segoe UI', Arial, sans-serif;
+$font-size-base:  16px;
+$font-size-sm:    14px;
+$font-size-xs:    11px;
+$font-weight-bold:    700;
+$font-weight-light:   300;
+$letter-spacing-wide: 4px;
+$letter-spacing-btn:  2px;
+$line-height-body:    1.7;
 
-h1 {
-  color: #333;
-}
-
-p {
-  line-height: 1.6;
-}
-
-footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
+// Spacing tokens
+$spacing-xs:  16px;
+$spacing-sm:  24px;
+$spacing-md:  40px;
+$spacing-lg:  60px;
+$spacing-xl:  80px;
 
