@@ -100,7 +100,9 @@ Add one smoke test per module (e.g. `src/shell/router.test.ts`) to confirm the f
 
 ---
 
-### SPEC-7: Add ESLint
+### ~~SPEC-7: Add ESLint~~ ✅ RESOLVED
+
+Implemented a dual-linter setup: ESLint 10 + `@typescript-eslint` for the shell/shared code (`eslint.config.js`), and Biome 2 for mfe1 (`src/mfe1/biome.json`). Scripts: `lint:shell`, `lint:mfe1`, `lint`. CI runs `npm run lint` before the build step.
 
 **Problem**: No linting. Agents produce inconsistent style and cannot self-check.
 
@@ -207,6 +209,6 @@ As each spec above is implemented, update the corresponding entry in `AGENTS.md`
 | 5 | SPEC-5 (about MFE) | Medium | Removes broken reference | Pending |
 | 6 | SPEC-8 (type stubs) | Low | Improves agent type inference | Pending |
 | 7 | SPEC-6 (tests) | Medium | Enables agent verification | Pending |
-| 8 | SPEC-7 (lint) | Low | Enforces style | Pending |
+| 8 | SPEC-7 (lint) | Low | Enforces style | ✅ Done |
 | 9 | SPEC-9 (docs) | Medium | Guides MFE additions | Pending |
 | 10 | SPEC-10 (README) | Low | Onboarding | Pending |

@@ -83,9 +83,28 @@ The shell dynamically imports the component and appends it to `#appContainer`.
 See `todo.md` for the full list. Key items:
 
 - No tests (`npm test` exits 1)
-- No linting configured
 - `about` MFE is referenced in router and webpack config but does not exist in the repo
-- `@ts-ignore` used for federation dynamic imports — no type stubs yet
+- `@ts-expect-error` used for federation dynamic imports — no type stubs yet (SPEC-8)
+
+---
+
+## Linting
+
+This project uses a **dual-linter setup** reflecting the multi-team MFE architecture:
+
+| App | Tool | Config | Script |
+|-----|------|--------|--------|
+| shell, features, about-module | ESLint 10 + `@typescript-eslint` | `eslint.config.js` (repo root) | `npm run lint:shell` |
+| mfe1 | Biome 2 | `src/mfe1/biome.json` | `npm run lint:mfe1` |
+
+Run all linters: `npm run lint`
+
+**Adding a new MFE**: choose either ESLint or Biome, add a scoped config inside the MFE's source directory, and add a `lint:<mfe-name>` script to `package.json`. Include it in the `lint` script.
+
+- ESLint: add an `overrides` entry or a local `.eslintrc` that extends the root `eslint.config.js`
+- Biome: add a `biome.json` with `"root": false` so it inherits from the nearest root
+
+Lint runs in CI (`.github/workflows/ci-cd.yml`) before the build step and will fail the build on errors.
 
 ---
 
@@ -93,7 +112,7 @@ See `todo.md` for the full list. Key items:
 
 - TypeScript strict mode is enabled (`tsconfig.json`)
 - Web Components use Shadow DOM (`mode: 'open'`)
-- `@ts-ignore` is used for federation dynamic imports — acceptable until proper type stubs exist
+- `@ts-expect-error` is used for federation dynamic imports — acceptable until proper type stubs exist (SPEC-8)
 - No framework — keep it that way unless explicitly decided otherwise
 - Commit messages: imperative mood, plain English, no ticket prefix required
 
